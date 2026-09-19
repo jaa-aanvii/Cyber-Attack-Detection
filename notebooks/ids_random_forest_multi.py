@@ -109,4 +109,3 @@ plt.xlabel("Predicted")
 plt.ylabel("Actual")
 plt.title("Confusion Matrix (RandomForest with SMOTE)")
 plt.show()
-
