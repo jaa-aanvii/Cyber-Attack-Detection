@@ -1,10 +1,25 @@
-models/
+# Python & Cache
 __pycache__/
-*.pyc
-.env
-venv/
+*.py[cod]
+*$py.class
 .ipynb_checkpoints/
+
+# Environments & IDEs
+.venv/
+venv/
+ENV/
+.env
+
+# Large Datasets & Raw Outputs
+data/*.csv
+results/
 *.zip
+
+# ML Models & Serialized Binaries
+models/
 *.pkl
-*.csv
 *.bin
+
+# OS Overhead
+.DS_Store
+Thumbs.db
