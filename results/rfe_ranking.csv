@@ -1,0 +1,45 @@
+,selected,ranking
+flow_duration,True,1
+Header_Length,True,1
+Protocol Type,True,1
+Rate,True,1
+Srate,True,1
+Tot sum,True,1
+rst_count,True,1
+urg_count,True,1
+Tot size,True,1
+Variance,True,1
+IAT,True,1
+Magnitue,True,1
+Max,True,1
+AVG,True,1
+Min,True,1
+syn_count,False,2
+Number,False,3
+Covariance,False,3
+Std,False,4
+Duration,False,4
+fin_count,False,5
+Radius,False,5
+Weight,False,6
+HTTPS,False,6
+SSH,False,7
+ack_count,False,7
+ack_flag_number,False,8
+UDP,False,8
+psh_flag_number,False,9
+TCP,False,9
+ICMP,False,10
+rst_flag_number,False,10
+HTTP,False,11
+fin_flag_number,False,11
+syn_flag_number,False,12
+DNS,False,12
+IPv,False,13
+LLC,False,13
+ARP,False,14
+DHCP,False,14
+SMTP,False,15
+ece_flag_number,False,15
+Drate,False,16
+cwr_flag_number,False,16

@@ -1,25 +1,17 @@
 # Python & Cache
 __pycache__/
 *.py[cod]
-*$py.class
 .ipynb_checkpoints/
 
-# Environments & IDEs
+# Virtual Environment (NEVER push .venv to GitHub)
 .venv/
 venv/
-ENV/
 .env
 
-# Large Datasets & Raw Outputs
+# Large Datasets & Model Weights
 data/*.csv
-results/
-*.zip
-
-# ML Models & Serialized Binaries
-models/
-*.pkl
-*.bin
+models/*.pkl
+models/*.bin
 
 # OS Overhead
 .DS_Store
-Thumbs.db
