@@ -10,6 +10,11 @@ from imblearn.over_sampling import SMOTE
 
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
+
+import matplotlib.pyplot as plt
+#matplotlib.use("Agg")
+import seaborn as sns
+
 from sklearn.metrics import (
     accuracy_score,
     precision_score,
@@ -380,31 +385,121 @@ def main():
             "features": FEATURES,
         }, f, indent=4)
 
-    # ==================================================
+        # ==================================================
     # 8. FINAL TEST METRICS
     # ==================================================
 
     test_pred = model.predict(X_test)
 
+    # Calculate metrics
+    test_accuracy = accuracy_score(y_test, test_pred)
+
+    test_precision_macro = precision_score(
+        y_test, test_pred, average="macro", zero_division=0
+    )
+
+    test_recall_macro = recall_score(
+        y_test, test_pred, average="macro", zero_division=0
+    )
+
+    test_f1_macro = f1_score(
+        y_test, test_pred, average="macro", zero_division=0
+    )
+
+    test_precision_weighted = precision_score(
+        y_test, test_pred, average="weighted", zero_division=0
+    )
+
+    test_recall_weighted = recall_score(
+        y_test, test_pred, average="weighted", zero_division=0
+    )
+
+    test_f1_weighted = f1_score(
+        y_test, test_pred, average="weighted", zero_division=0
+    )
+
+    # Print test results
     print("\n========== HELD-OUT TEST RESULTS ==========")
-    print("Test accuracy:", round(accuracy_score(y_test, test_pred), 4))
-    print("Test macro F1:", round(
-        f1_score(y_test, test_pred, average="macro", zero_division=0),
-        4
-    ))
+    print(f"Accuracy:           {test_accuracy:.4f}")
+    print(f"Macro Precision:    {test_precision_macro:.4f}")
+    print(f"Macro Recall:       {test_recall_macro:.4f}")
+    print(f"Macro F1-score:     {test_f1_macro:.4f}")
+    print(f"Weighted Precision: {test_precision_weighted:.4f}")
+    print(f"Weighted Recall:    {test_recall_weighted:.4f}")
+    print(f"Weighted F1-score:  {test_f1_weighted:.4f}")
+
+    print("\nClassification Report:")
+    print(classification_report(y_test, test_pred, zero_division=0))
 
     # ==================================================
-    # 9. SAVE MODEL
+    # 9. GENERATE CONFUSION MATRIX PNG
     # ==================================================
 
-    model_path = OUTPUT_DIR / "random_forest_smote.joblib"
-    joblib.dump(model, model_path)
+    labels = model.classes_
 
-    print("\nModel saved to:", model_path)
-    print("Reports saved to:", RESULTS_DIR)
-    print("Class distribution saved to results/class_distribution.csv")
-    print("\nTraining completed!")
+    cm = confusion_matrix(
+        y_test,
+        test_pred,
+        labels=labels
+    )
 
+    plt.figure(figsize=(12, 9))
+
+    sns.heatmap(
+        cm,
+        annot=True,
+        fmt="d",
+        cmap="Blues",
+        xticklabels=labels,
+        yticklabels=labels
+    )
+
+    plt.title("Random Forest - Test Confusion Matrix")
+    plt.xlabel("Predicted Class")
+    plt.ylabel("Actual Class")
+    plt.xticks(rotation=45, ha="right")
+    plt.yticks(rotation=0)
+    plt.tight_layout()
+
+    matrix_path = RESULTS_DIR / "test_confusion_matrix.png"
+
+    plt.savefig(
+        matrix_path,
+        dpi=300,
+        bbox_inches="tight"
+    )
+
+    plt.close()
+
+    print(f"\nConfusion matrix saved to: {matrix_path}")
+
+    # Save classification report as CSV
+    report = classification_report(
+        y_test,
+        test_pred,
+        zero_division=0,
+        output_dict=True
+    )
+
+    pd.DataFrame(report).transpose().to_csv(
+        RESULTS_DIR / "test_classification_report.csv"
+    )
+
+    # Save test metrics as CSV
+    pd.DataFrame([{
+        "accuracy": test_accuracy,
+        "macro_precision": test_precision_macro,
+        "macro_recall": test_recall_macro,
+        "macro_f1": test_f1_macro,
+        "weighted_precision": test_precision_weighted,
+        "weighted_recall": test_recall_weighted,
+        "weighted_f1": test_f1_weighted,
+    }]).to_csv(
+        RESULTS_DIR / "test_metrics.csv",
+        index=False
+    )
+
+    print("Test metrics saved to results/test_metrics.csv")
 
 if __name__ == "__main__":
     main()
