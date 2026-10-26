@@ -1,21 +1,43 @@
-# Python & Cache
-__pycache__/
-*.py[cod]
-.ipynb_checkpoints/
 
-# Virtual Environment (NEVER push .venv to GitHub)
+# Python environment and cache
 .venv/
 venv/
-.env
+__pycache__/
+*.py[cod]
+.pytest_cache/
 
-# Large Datasets & Model Weights
-data/*.csv
+# Local datasets and large generated data
+data/
+*.pcap
+*.pcap.csv
+
+# Trained models
+models/*.joblib
 models/*.pkl
-models/*.bin
+models/*.pickle
 
-# OS Overhead
+# Generated evaluation outputs
+results/split_*.csv
+results/class_distribution.csv
+results/validation_*.csv
+results/validation_*.json
+results/*imbalance_report.csv
+
+# Local secrets
+.env
+.env.*
+!.env.example
+
+# Editor and operating system files
+.vscode/
 .DS_Store
-data/raw/ciciot2023.zip
+Thumbs.db
+# Datasets
+data/processed/*.csv
 
-data/raw/ciciot2023.zip
-results/split_train.csv
+# Trained models
+models/*.joblib
+
+# Generated results
+results/*.csv
+results/*.json
