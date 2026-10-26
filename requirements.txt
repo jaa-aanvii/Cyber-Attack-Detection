@@ -4,3 +4,6 @@ scikit-learn
 joblib
 matplotlib
 seaborn
+tqdm
+tabulate
+openpyxl

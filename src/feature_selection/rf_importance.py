@@ -36,7 +36,7 @@ def compute_rf_importance(X_train, y_train, X_val, y_val):
 
     perm_result = permutation_importance(
         probe_rf, X_val, y_val,
-        n_repeats=N_REPEATS, random_state=RANDOM_STATE, n_jobs=-1,
+        n_repeats=N_REPEATS, random_state=RANDOM_STATE, n_jobs=1,
     )
     perm_ranking = pd.Series(
         perm_result.importances_mean, index=X_train.columns, name="rf_perm_importance"

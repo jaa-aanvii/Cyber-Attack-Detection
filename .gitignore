@@ -15,3 +15,7 @@ models/*.bin
 
 # OS Overhead
 .DS_Store
+data/raw/ciciot2023.zip
+
+data/raw/ciciot2023.zip
+results/split_train.csv
